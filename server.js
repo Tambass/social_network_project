@@ -10,15 +10,18 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
+const passport = require("passport");
 
 const container = require("./container");
 
 container.resolve(function (users) {
   //
   mongoose.Promise = global.Promise;
-  mongoose.connect("mongodb://localhost/social_network_project", {
-    useMongoClient: true,
+  mongoose.connect("mongodb://localhost:27017/social_network_project", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
+  console.log("Status Mongoose :", mongoose.connection.readyState);
 
   const app = SetupExpress();
 
@@ -44,7 +47,8 @@ container.resolve(function (users) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
-    app.use(validator());
+    //app.use(validator());
+
     app.use(
       session({
         secret: "thisIsAsecretKey",
@@ -55,5 +59,8 @@ container.resolve(function (users) {
     );
 
     app.use(flash());
+
+    app.use(passport.initialize());
+    app.use(passport.session());
   }
 });
