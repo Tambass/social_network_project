@@ -16,11 +16,19 @@ container.resolve(function (users) {
     server.listen(3000, function () {
       console.log("Écoute le port 3000");
     });
+    ConfigureExpress(app);
+
+    //Setup router
+    const router = require("express-promise-router")();
+    users.SetRouting(router);
   }
 
-  //Setup router
-  const router = require("express-promise-router")();
-  users.SetRouting(router);
-
   app.use(router);
+
+  function ConfigureExpress(app) {
+    app.use(express.static("public"));
+    app.set("view", "ejs");
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
+  }
 });
