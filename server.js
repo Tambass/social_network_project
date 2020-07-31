@@ -21,13 +21,13 @@ container.resolve(function (users) {
     //Setup router
     const router = require("express-promise-router")();
     users.SetRouting(router);
-  }
 
-  app.use(router);
+    app.use(router);
+  }
 
   function ConfigureExpress(app) {
     app.use(express.static("public"));
-    app.set("view", "ejs");
+    app.set("view engine", "ejs");
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
   }
