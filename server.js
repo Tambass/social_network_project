@@ -20,6 +20,7 @@ container.resolve(function (users) {
   mongoose.connect("mongodb://localhost:27017/social_network_project", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   });
   console.log("Status Mongoose :", mongoose.connection.readyState);
 
@@ -41,7 +42,7 @@ container.resolve(function (users) {
   }
 
   function ConfigureExpress(app) {
-    require("./passort.passport-local");
+    require("./passport/passport-local");
 
     app.use(express.static("public"));
     app.use(cookieParser());
