@@ -7,12 +7,19 @@ module.exports = function (_, passport, User) {
       router.get("/signup", this.getSignUp);
       router.get("/home", this.homePage);
 
+      router.post("/", this.postLogin);
       router.post("/signup", User.SignUpValidation, this.postSignUp);
     },
 
     indexPage: function (req, res) {
       return res.render("index");
     },
+
+    postLogin: passport.authenticate("local.login", {
+      successRedirect: "/home",
+      failureRedirect: "/",
+      failureFlash: true,
+    }),
 
     getSignUp: function (req, res) {
       const errors = req.flash("error");

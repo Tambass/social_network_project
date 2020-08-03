@@ -46,3 +46,31 @@ passport.use(
     }
   )
 );
+
+passport.use(
+  "local.login",
+  new LocalStrategy(
+    {
+      usernameField: "email",
+      passwordField: "password",
+      passReqToCallback: true,
+    },
+    (req, email, password, done) => {
+      User.findOne({ email: email }, (err, user) => {
+        if (err) {
+          return done(err);
+        }
+
+        const messages = [];
+        if (!user || !user.validUserPassword(password)) {
+          messages.push(
+            "L'email n'éxiste pas ou le mot de passe est incorrect !"
+          );
+          return done(null, false, req.flash("error", messages));
+        }
+
+        return done(null, user);
+      });
+    }
+  )
+);
