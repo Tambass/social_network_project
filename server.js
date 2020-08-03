@@ -50,7 +50,7 @@ container.resolve(function (users, _) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
-    //app.use(validator());
+    app.use(validator());
 
     app.use(
       session({
@@ -69,3 +69,6 @@ container.resolve(function (users, _) {
     app.locals._ = _;
   }
 });
+
+
+// REPRENDRE À LA SECTION(4) VIDÉO 34.MP4
