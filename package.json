@@ -2,7 +2,7 @@
   "name": "social_network_project",
   "version": "1.0.0",
   "description": "liveChat application build with nodeJS, mongoDB, express and socket.io",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
